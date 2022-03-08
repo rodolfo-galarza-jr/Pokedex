@@ -13,6 +13,10 @@
 		602A971827D6F16A00034818 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602A970627D6F16900034818 /* ContentView.swift */; };
 		602A971927D6F16A00034818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 602A970727D6F16A00034818 /* Assets.xcassets */; };
 		602A971A27D6F16A00034818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 602A970727D6F16A00034818 /* Assets.xcassets */; };
+		602A972427D6F1CB00034818 /* Model in Resources */ = {isa = PBXBuildFile; fileRef = 602A972327D6F1CB00034818 /* Model */; };
+		602A972527D6F1CB00034818 /* Model in Resources */ = {isa = PBXBuildFile; fileRef = 602A972327D6F1CB00034818 /* Model */; };
+		602A972827D6F26C00034818 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602A972727D6F26C00034818 /* NetworkingManager.swift */; };
+		602A972927D6F26C00034818 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602A972727D6F26C00034818 /* NetworkingManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,8 @@
 		602A970C27D6F16A00034818 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		602A971227D6F16A00034818 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		602A971427D6F16A00034818 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		602A972327D6F1CB00034818 /* Model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
+		602A972727D6F26C00034818 /* NetworkingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,8 @@
 			children = (
 				602A970527D6F16900034818 /* PokedexApp.swift */,
 				602A970627D6F16900034818 /* ContentView.swift */,
+				602A972627D6F24E00034818 /* Network */,
+				602A972327D6F1CB00034818 /* Model */,
 				602A970727D6F16A00034818 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -76,6 +84,14 @@
 				602A971427D6F16A00034818 /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		602A972627D6F24E00034818 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				602A972727D6F26C00034818 /* NetworkingManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +173,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				602A972427D6F1CB00034818 /* Model in Resources */,
 				602A971927D6F16A00034818 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,6 +182,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				602A972527D6F1CB00034818 /* Model in Resources */,
 				602A971A27D6F16A00034818 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				602A972827D6F26C00034818 /* NetworkingManager.swift in Sources */,
 				602A971727D6F16A00034818 /* ContentView.swift in Sources */,
 				602A971527D6F16A00034818 /* PokedexApp.swift in Sources */,
 			);
@@ -185,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				602A972927D6F26C00034818 /* NetworkingManager.swift in Sources */,
 				602A971827D6F16A00034818 /* ContentView.swift in Sources */,
 				602A971627D6F16A00034818 /* PokedexApp.swift in Sources */,
 			);

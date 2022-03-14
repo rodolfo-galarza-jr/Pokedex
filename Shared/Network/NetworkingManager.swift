@@ -29,13 +29,9 @@ enum networkingError: LocalizedError {
     }
 }
 
-protocol NetworkingManagerProtocol {
-    func fetch<T: Decodable>(type: T.Type, url: String) async throws -> T
-}
-
-struct NetworkingManager: NetworkingManagerProtocol {
+enum NetworkingManager {
     
-    func fetch<T>(type: T.Type, url: String) async throws -> T where T : Decodable {
+   static func fetch<T>(type: T.Type, url: String) async throws -> T where T : Decodable {
         guard let url = URL(string: url) else {
             preconditionFailure("Invalid URL format")
         }

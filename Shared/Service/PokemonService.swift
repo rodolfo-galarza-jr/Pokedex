@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PokemonServiceProtocol {
     func getPokemonList(forGeneration id: Int) async throws -> [Pokemon]
+    func getPokemonImage(url: String) async throws -> UIImage?
 }
 
 class PokemonService: PokemonServiceProtocol {
@@ -36,6 +38,10 @@ class PokemonService: PokemonServiceProtocol {
         }
         
         return pokemonList.sorted { $0.id < $1.id}
+    }
+    
+    func getPokemonImage(url: String) async throws -> UIImage? {
+        return try await NetworkingManager.fetchImage(url: url)
     }
 }
 
@@ -79,6 +85,10 @@ class MockPokemonService {
 }
 
 extension MockPokemonService : PokemonServiceProtocol {
+    func getPokemonImage(url: String) -> UIImage? {
+        return UIImage(systemName: "heart.fill")
+    }
+    
     
     func getPokemonList(forGeneration id: Int) async throws -> [Pokemon] {
         return pokemon

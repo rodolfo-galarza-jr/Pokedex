@@ -53,4 +53,22 @@ enum NetworkingManager {
         }
     }
     
+    static func fetchImage(url: String) async throws -> UIImage? {
+        guard let url = URL(string: url) else {
+            preconditionFailure("Invalid URL format")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw networkingError.urlResponseFailed(url: url)
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            throw networkingError.badURLResponse(url: url, statusCode: httpResponse.statusCode)
+        }
+        
+        return UIImage(data: data)
+    }
+    
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 
-//@MainActor
 protocol PokemonListViewModelProtocol: ObservableObject {
     var pokemonList: [Pokemon] { get }
     func getPokemonList() async

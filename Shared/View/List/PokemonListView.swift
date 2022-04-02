@@ -14,13 +14,27 @@ struct PokemonListView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(self.viewModel.pokemonList) { pokemon in
-                    PokemonRowView(pokemonName: pokemon.name, pokemonImgURL: pokemon.sprites.other.official.frontDefault, pokemonID: pokemon.id, types: pokemon.types)
+            VStack {
+                
+                Text("Pok\u{00E9}mon")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.red)
+                    //.padding(.top)
+                    .multilineTextAlignment(.leading)
+                
+                SearchBarView(searchText: $viewModel.searchText)
+                
+                List {
+                    ForEach(self.viewModel.filteredPokemonList) { pokemon in
+                        PokemonRowView(pokemonName: pokemon.name, pokemonImgURL: pokemon.sprites.other.official.frontDefault, pokemonID: pokemon.id, types: pokemon.types)
+                    }
+                    .listRowSeparator(.hidden)
                 }
-                .listRowSeparator(.hidden)
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarHidden(true)
         }.task {
             await viewModel.getPokemonList()
         }

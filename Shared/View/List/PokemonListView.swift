@@ -20,24 +20,29 @@ struct PokemonListView: View {
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.red)
-                    //.padding(.top)
                     .multilineTextAlignment(.leading)
                 
                 SearchBarView(searchText: $viewModel.searchText)
                 
-                List {
-                    ForEach(self.viewModel.filteredPokemonList) { pokemon in
-                        PokemonRowView(pokemonName: pokemon.name, pokemonImgURL: pokemon.sprites.other.official.frontDefault, pokemonID: pokemon.id, types: pokemon.types)
-                    }
-                    .listRowSeparator(.hidden)
-                }
-                .listStyle(.plain)
+                PokemonList
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
         }.task {
             await viewModel.getPokemonList()
         }
+    }
+}
+
+extension PokemonListView {
+    private var PokemonList: some View {
+        List {
+            ForEach(self.viewModel.filteredPokemonList) { pokemon in
+                PokemonRowView(pokemonName: pokemon.name, pokemonImgURL: pokemon.sprites.other.official.frontDefault, pokemonID: pokemon.id, types: pokemon.types)
+            }
+            .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
     }
 }
 

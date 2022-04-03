@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 class PokemonImageViewModel: ObservableObject {
     @Published var image: UIImage? = nil
-    @Published private(set) var state: State = .na
+    @Published private(set) var state: viewState = .na
     private var pokemonName: String
     private var urlString: String?
     private var folderName: String = "pokemon_images"
@@ -56,7 +56,7 @@ class PokemonImageViewModel: ObservableObject {
 }
 
 
-enum State {
+enum viewState {
     case na
     case loading
     case success

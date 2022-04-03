@@ -13,7 +13,7 @@ protocol PokemonListViewModelProtocol: ObservableObject {
     var pokemonList: [Pokemon] { get }
     var filteredPokemonList: [Pokemon] { get }
     var searchText: String { get set }
-    var state: State { get }
+    var state: viewState { get }
     func getPokemonList() async
     func searchBarSubscriber()
     func filterPokemonList(searchText: String, pokemonList: [Pokemon]) -> [Pokemon]
@@ -24,7 +24,7 @@ final class PokemonListViewModel: ObservableObject{
     @Published var pokemonList = [Pokemon]()
     @Published var filteredPokemonList = [Pokemon]()
     @Published var searchText:String = ""
-    @Published var state: State = .na
+    @Published var state: viewState = .na
     private var cancellables = Set<AnyCancellable>()
     
     init(pokemonService: PokemonServiceProtocol = PokemonService()){

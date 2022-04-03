@@ -11,19 +11,14 @@ import SwiftUI
 @MainActor
 class PokemonImageViewModel: ObservableObject {
     @Published var image: UIImage? = nil
-    @Published private(set) var state: State = .na
+    @Published private(set) var state: viewState = .na
     private var pokemonName: String
     private var urlString: String?
     private var folderName: String = "pokemon_images"
     private let imageFileManager = LocalImageFileManager.instance
     private let pokemonService: PokemonServiceProtocol
 
-    enum State {
-        case na
-        case loading
-        case success
-        case failed(error: Error)
-    }
+
     
     init(pokemonName: String, urlString: String?, pokemonService: PokemonServiceProtocol = PokemonService()){
         self.pokemonName = pokemonName
@@ -59,3 +54,12 @@ class PokemonImageViewModel: ObservableObject {
         }
     }
 }
+
+
+enum viewState {
+    case na
+    case loading
+    case success
+    case failed(error: Error)
+}
+

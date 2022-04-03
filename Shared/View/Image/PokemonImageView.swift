@@ -21,13 +21,20 @@ struct PokemonImageView: View {
     
     var body: some View {
         ZStack {
-            if let image = vm.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-            } else {
-                Image(systemName: "questionmark")
-                    .foregroundColor(Color.gray)
+            switch vm.state {
+            case .success:
+                if let image = vm.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    Image(systemName: "questionmark")
+                        .foregroundColor(Color.gray)
+                }
+            case .loading:
+                ProgressView()
+            default:
+                EmptyView()
             }
         }
         .task {

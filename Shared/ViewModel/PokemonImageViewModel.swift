@@ -18,12 +18,7 @@ class PokemonImageViewModel: ObservableObject {
     private let imageFileManager = LocalImageFileManager.instance
     private let pokemonService: PokemonServiceProtocol
 
-    enum State {
-        case na
-        case loading
-        case success
-        case failed(error: Error)
-    }
+
     
     init(pokemonName: String, urlString: String?, pokemonService: PokemonServiceProtocol = PokemonService()){
         self.pokemonName = pokemonName
@@ -59,3 +54,12 @@ class PokemonImageViewModel: ObservableObject {
         }
     }
 }
+
+
+enum State {
+    case na
+    case loading
+    case success
+    case failed(error: Error)
+}
+

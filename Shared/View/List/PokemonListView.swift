@@ -14,18 +14,29 @@ struct PokemonListView: View {
     
     var body: some View {
         NavigationView {
+            
             VStack {
-                
-                Text("Pok\u{00E9}mon")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.red)
-                    .multilineTextAlignment(.leading)
-                
-                SearchBarView(searchText: $viewModel.searchText)
-                
-                PokemonList
+                switch viewModel.state {
+                case .success:
+                    VStack {
+                        
+                        Text("Pok\u{00E9}mon")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.leading)
+                        
+                        SearchBarView(searchText: $viewModel.searchText)
+                        
+                        PokemonList
+                    }
+                case .loading:
+                    ProgressView()
+                default:
+                    EmptyView()
+                }
             }
+
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
         }.task {

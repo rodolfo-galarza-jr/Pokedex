@@ -56,6 +56,9 @@ struct PokemonDetailView: View {
             }
             Spacer()
         }
+        .task {
+            await vm.getPokemonDetailData(id: vm.pokemon.id)
+        }
     }
 }
 

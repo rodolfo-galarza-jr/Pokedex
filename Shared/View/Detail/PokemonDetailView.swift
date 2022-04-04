@@ -22,6 +22,7 @@ struct PokemonDetailLoadingView: View {
 struct PokemonDetailView: View {
     
     @StateObject var vm: PokemonDetailViewModel
+    @State var selected = 1
     
     init(pokemon: Pokemon) {
         _vm = StateObject(wrappedValue: PokemonDetailViewModel(pokemon: pokemon))
@@ -29,8 +30,31 @@ struct PokemonDetailView: View {
     
     var body: some View {
         VStack{
-            Text("hello")
-            Text(vm.pokemon.name)
+            
+            PokemonImageView(pokemonName: vm.pokemon.name)
+                .scaledToFit()
+                .frame(maxWidth: 125, maxHeight: 125, alignment: .top)
+            
+            Picker(selection: $selected){
+                Text("About").tag(1)
+                Text("Stats").tag(2)
+                Text("Evolution").tag(3)
+            } label: {
+                EmptyView()
+            }.pickerStyle(SegmentedPickerStyle())
+                .padding()
+            
+            switch selected {
+            case 1:
+                Text("About View")
+            case 2:
+                Text("Stats View")
+            case 3:
+                Text("Evolution View")
+            default:
+                EmptyView()
+            }
+            Spacer()
         }
     }
 }

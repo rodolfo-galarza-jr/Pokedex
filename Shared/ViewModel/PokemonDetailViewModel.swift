@@ -24,11 +24,9 @@ class PokemonDetailViewModel: ObservableObject {
         
         do {
             let species = try await pokemonService.getPokemonSpecies(id: id)
-            print(species)
             self.species = species
             
             let evolution = try await pokemonService.getEvolution(url: species.evolutionChain.url)
-            print(evolution)
             self.evolution = evolution
         } catch {
             print(error)

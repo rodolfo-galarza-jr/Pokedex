@@ -46,7 +46,7 @@ struct PokemonDetailView: View {
             
             switch selected {
             case 1:
-                Text("About View")
+                PokemonAboutView(pokemon: vm.pokemon, species: vm.species)
             case 2:
                 Text("Stats View")
             case 3:

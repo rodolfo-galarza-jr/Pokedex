@@ -36,6 +36,7 @@
 		60912E9427FBC45000B6C7E6 /* PokemonAboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60912E9327FBC45000B6C7E6 /* PokemonAboutView.swift */; };
 		60912E9627FBCAB200B6C7E6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60912E9527FBCAB200B6C7E6 /* String.swift */; };
 		60912E9927FBD3B100B6C7E6 /* PokemonTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60912E9827FBD3B100B6C7E6 /* PokemonTypeView.swift */; };
+		60912E9B27FE820700B6C7E6 /* PokemonDetailDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60912E9A27FE820700B6C7E6 /* PokemonDetailDataView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		60912E9327FBC45000B6C7E6 /* PokemonAboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonAboutView.swift; sourceTree = "<group>"; };
 		60912E9527FBCAB200B6C7E6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		60912E9827FBD3B100B6C7E6 /* PokemonTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTypeView.swift; sourceTree = "<group>"; };
+		60912E9A27FE820700B6C7E6 /* PokemonDetailDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailDataView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,8 +220,8 @@
 		60912E9027F949D700B6C7E6 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				60912E9727FBD39C00B6C7E6 /* About */,
 				60912E9127F94A2A00B6C7E6 /* PokemonDetailView.swift */,
+				60912E9727FBD39C00B6C7E6 /* About */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -229,6 +231,7 @@
 			children = (
 				60912E9327FBC45000B6C7E6 /* PokemonAboutView.swift */,
 				60912E9827FBD3B100B6C7E6 /* PokemonTypeView.swift */,
+				60912E9A27FE820700B6C7E6 /* PokemonDetailDataView.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				60912E8927E40EDB00B6C7E6 /* SearchBarView.swift in Sources */,
 				602966B127E01DF400DCCB25 /* PokemonRowView.swift in Sources */,
 				602A977427DC4F4E00034818 /* PokemonListViewModel.swift in Sources */,
+				60912E9B27FE820700B6C7E6 /* PokemonDetailDataView.swift in Sources */,
 				602A977027DC4B6600034818 /* Generation.swift in Sources */,
 				602A976F27DC4B6600034818 /* Evolution.swift in Sources */,
 				602966B427E14A0C00DCCB25 /* LocalImageFileManager.swift in Sources */,

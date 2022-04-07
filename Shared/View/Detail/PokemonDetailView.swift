@@ -46,7 +46,7 @@ struct PokemonDetailView: View {
             
             switch selected {
             case 1:
-                PokemonAboutView(pokemon: vm.pokemon, species: vm.species)
+                PokemonAboutView(pokemon: vm.pokemon, species: vm.species, typeColor: (vm.pokemon.types.first?.type.name ?? ""))
             case 2:
                 Text("Stats View")
             case 3:
@@ -56,6 +56,12 @@ struct PokemonDetailView: View {
             }
             Spacer()
         }
+        .onAppear(perform: {
+            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color(vm.pokemon.types.first?.type.name ?? "red"))
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
+            //UISegmentedControl.appearance().backgroundColor = UIColor(Color(vm.pokemon.types.first?.type.name ?? "red").opacity(0.2))
+        })
         .task {
             await vm.getPokemonDetailData(id: vm.pokemon.id)
         }

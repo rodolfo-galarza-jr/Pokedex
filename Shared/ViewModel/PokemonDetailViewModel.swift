@@ -7,10 +7,29 @@
 
 import Foundation
 
+@MainActor
 class PokemonDetailViewModel: ObservableObject {
-    let pokemon: Pokemon
+    @Published var species: Species? = nil
+    @Published var evolution: Evolution? = nil
     
-    init(pokemon: Pokemon){
+    let pokemon: Pokemon
+    private let pokemonService: PokemonServiceProtocol
+    
+    init(pokemon: Pokemon, pokemonService: PokemonService = PokemonService()){
         self.pokemon = pokemon
+        self.pokemonService = pokemonService
+    }
+    
+    func getPokemonDetailData(id: Int) async {
+        
+        do {
+            let species = try await pokemonService.getPokemonSpecies(id: id)
+            self.species = species
+            
+            let evolution = try await pokemonService.getEvolution(url: species.evolutionChain.url)
+            self.evolution = evolution
+        } catch {
+            print(error)
+        }
     }
 }

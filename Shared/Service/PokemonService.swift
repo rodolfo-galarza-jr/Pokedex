@@ -11,6 +11,8 @@ import UIKit
 protocol PokemonServiceProtocol {
     func getPokemonList(forGeneration id: Int) async throws -> [Pokemon]
     func getPokemonImage(url: String) async throws -> UIImage?
+    func getPokemonSpecies(id: Int) async throws -> Species
+    func getEvolution(url: String) async throws -> Evolution
 }
 
 class PokemonService: PokemonServiceProtocol {
@@ -43,13 +45,21 @@ class PokemonService: PokemonServiceProtocol {
     func getPokemonImage(url: String) async throws -> UIImage? {
         return try await NetworkingManager.fetchImage(url: url)
     }
+    
+    func getPokemonSpecies(id: Int) async throws -> Species {
+        let url = "https://pokeapi.co/api/v2/" + "pokemon-species/\(id)"
+        return try await NetworkingManager.fetch(type: Species.self, url: url)
+    }
+    
+    func getEvolution(url: String) async throws -> Evolution {
+        return try await NetworkingManager.fetch(type: Evolution.self, url: url)
+    }
 }
-
-
-
 
 class MockPokemonService {
     private var pokemon = [Pokemon]()
+    private var species: Species
+    private var evolution: Evolution
 
     init() {
         pokemon = [Pokemon(id: 1,
@@ -81,16 +91,29 @@ class MockPokemonService {
                            ],
                            types: [PokemonType(id: 1, type: NamedAPIResource(name: "grass", url: "https://pokeapi.co/api/v2/type/12/")),
                                   PokemonType(id: 2, type: NamedAPIResource(name: "poison", url: "https://pokeapi.co/api/v2/type/4/"))])]
-    }
+        
+        species = Species(id: 1, baseHappiness: 50, captureRate: 45, genderRate: 1, hatchCounter: 20, order: 1, eggGroups: [NamedAPIResource(name: "monster", url: "https://pokeapi.co/api/v2/egg-group/1/"), NamedAPIResource(name: "plant", url: "https://pokeapi.co/api/v2/egg-group/7/")], growthRate: NamedAPIResource(name: "medium-slow", url: "https://pokeapi.co/api/v2/growth-rate/4/"), habitat: NamedAPIResource(name: "grassland", url: "https://pokeapi.co/api/v2/pokemon-habitat/3/"), evolutionChain: APIResource(url: "https://pokeapi.co/api/v2/evolution-chain/1/"), flavorTextEntries: [flavorTextEntry(flavorText: "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokemon", language: NamedAPIResource(name: "en", url: ""), version: NamedAPIResource(name: "red", url: ""))], hasGenderDifferences: false, isBaby: false, isLegendary: false, isMythical: false)
+        
+        evolution = Evolution(id: 1, chain: EvolvesTo(is_baby: false, species: NamedAPIResource(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon-species/1/"), evolution_details: nil,
+                                                      evolves_to: [EvolvesTo(is_baby: false, species: NamedAPIResource(name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon-species/2/"), evolution_details: [EvolutionDetail(min_level: 16, trigger: NamedAPIResource(name: "level-up", url: "https://pokeapi.co/api/v2/evolution-trigger/1/"), item: nil)],
+                                                                             evolves_to: [EvolvesTo(is_baby: false, species: NamedAPIResource(name: "venasaur", url: "https://pokeapi.co/api/v2/pokemon-species/3/"), evolution_details: [EvolutionDetail(min_level: 32, trigger: NamedAPIResource(name: "level-up", url: "https://pokeapi.co/api/v2/evolution-trigger/1/"), item: nil)], evolves_to: nil)])]))    }
 }
 
 extension MockPokemonService : PokemonServiceProtocol {
+    
     func getPokemonImage(url: String) -> UIImage? {
         return UIImage(systemName: "heart.fill")
     }
     
-    
     func getPokemonList(forGeneration id: Int) async throws -> [Pokemon] {
         return pokemon
+    }
+    
+    func getPokemonSpecies(id: Int) async throws -> Species {
+        return species
+    }
+    
+    func getEvolution(url: String) async throws -> Evolution {
+        return evolution
     }
 }

@@ -20,7 +20,7 @@ struct PokemonListView: View {
                 switch viewModel.state {
                 case .success:
                     VStack {
-                        Text("Pok\u{00E9}mon")
+                        Text("Pok\u{00E9}dex")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.red)

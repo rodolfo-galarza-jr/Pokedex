@@ -11,9 +11,11 @@ import Foundation
 class PokemonDetailViewModel: ObservableObject {
     @Published var species: Species? = nil
     @Published var evolution: Evolution? = nil
+    @Published var typeStats: [PkType] = []
     
     let pokemon: Pokemon
     private let pokemonService: PokemonServiceProtocol
+    private var pokemonTypeUrls: [String] = []
     
     init(pokemon: Pokemon, pokemonService: PokemonService = PokemonService()){
         self.pokemon = pokemon
@@ -28,8 +30,20 @@ class PokemonDetailViewModel: ObservableObject {
             
             let evolution = try await pokemonService.getEvolution(url: species.evolutionChain.url)
             self.evolution = evolution
+            
+            getPokemonTypeUrls()
+            
+            let typeStats = try await pokemonService.getPokemonTypeStats(listOfTypes: self.pokemonTypeUrls)
+            self.typeStats.append(contentsOf: typeStats)
+            
         } catch {
             print(error)
+        }
+    }
+    
+    private func getPokemonTypeUrls() {
+        for typeResource in pokemon.types {
+            self.pokemonTypeUrls.append(typeResource.type.url)
         }
     }
 }

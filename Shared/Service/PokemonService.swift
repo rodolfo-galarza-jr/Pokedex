@@ -8,11 +8,14 @@
 import Foundation
 import UIKit
 
+
+
 protocol PokemonServiceProtocol {
     func getPokemonList(forGeneration id: Int) async throws -> [Pokemon]
     func getPokemonImage(url: String) async throws -> UIImage?
     func getPokemonSpecies(id: Int) async throws -> Species
     func getEvolution(url: String) async throws -> Evolution
+    func getPokemonTypeStats(listOfTypes: [String]) async throws -> [PkType]
 }
 
 class PokemonService: PokemonServiceProtocol {
@@ -54,12 +57,33 @@ class PokemonService: PokemonServiceProtocol {
     func getEvolution(url: String) async throws -> Evolution {
         return try await NetworkingManager.fetch(type: Evolution.self, url: url)
     }
+    
+    func getPokemonTypeStats(listOfTypes: [String]) async throws -> [PkType] {
+        var pokemonTypes = [PkType]()
+        
+        try await withThrowingTaskGroup(of: PkType.self) { group in
+            for listResource in listOfTypes {
+                group.addTask {
+                    
+                    let pkType = try await NetworkingManager.fetch(type: PkType.self, url: listResource)
+                    return pkType
+                }
+            }
+            
+            for try await item in group {
+                pokemonTypes.append(item)
+            }
+        }
+        
+        return pokemonTypes
+    }
 }
 
 class MockPokemonService {
     private var pokemon = [Pokemon]()
     private var species: Species
     private var evolution: Evolution
+    private var pkTypeStats: [PkType] = [PkType]()
 
     init() {
         pokemon = [Pokemon(id: 1,
@@ -96,7 +120,28 @@ class MockPokemonService {
         
         evolution = Evolution(id: 1, chain: EvolvesTo(is_baby: false, species: NamedAPIResource(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon-species/1/"), evolution_details: nil,
                                                       evolves_to: [EvolvesTo(is_baby: false, species: NamedAPIResource(name: "ivysaur", url: "https://pokeapi.co/api/v2/pokemon-species/2/"), evolution_details: [EvolutionDetail(min_level: 16, trigger: NamedAPIResource(name: "level-up", url: "https://pokeapi.co/api/v2/evolution-trigger/1/"), item: nil)],
-                                                                             evolves_to: [EvolvesTo(is_baby: false, species: NamedAPIResource(name: "venasaur", url: "https://pokeapi.co/api/v2/pokemon-species/3/"), evolution_details: [EvolutionDetail(min_level: 32, trigger: NamedAPIResource(name: "level-up", url: "https://pokeapi.co/api/v2/evolution-trigger/1/"), item: nil)], evolves_to: nil)])]))    }
+                                                                             evolves_to: [EvolvesTo(is_baby: false, species: NamedAPIResource(name: "venasaur", url: "https://pokeapi.co/api/v2/pokemon-species/3/"), evolution_details: [EvolutionDetail(min_level: 32, trigger: NamedAPIResource(name: "level-up", url: "https://pokeapi.co/api/v2/evolution-trigger/1/"), item: nil)], evolves_to: nil)])]))
+        
+        pkTypeStats.append(PkType(id: 4, name: "poison", damageRelations: damageRelations(doubleDamageFrom: [NamedAPIResource(name: "ground", url: ""), NamedAPIResource(name: "psychic", url: "")],
+                                                                                          doubleDamageTo: [],
+                                                                                          halfDamageFrom: [NamedAPIResource(name: "fighting", url: ""), NamedAPIResource(name: "poison", url: ""), NamedAPIResource(name: "bug", url: ""),
+                                                                                                          NamedAPIResource(name: "grass", url: ""), NamedAPIResource(name: "fairy", url: "")],
+                                                                                          halfDamageTo: [],
+                                                                                          noDamageFrom: [],
+                                                                                          noDamageTo: [])))
+        
+        pkTypeStats.append(PkType(id: 12, name: "grass", damageRelations: damageRelations(doubleDamageFrom: [NamedAPIResource(name: "flying", url: ""), NamedAPIResource(name: "poison", url: ""), NamedAPIResource(name: "bug", url: ""),
+                                                                                                            NamedAPIResource(name: "fire", url: ""), NamedAPIResource(name: "ice", url: "")],
+                                                                                          doubleDamageTo: [],
+                                                                                          halfDamageFrom: [NamedAPIResource(name: "ground", url: ""), NamedAPIResource(name: "water", url: ""), NamedAPIResource(name: "grass", url: ""),
+                                                                                                          NamedAPIResource(name: "electric", url: "")],
+                                                                                          halfDamageTo: [],
+                                                                                          noDamageFrom: [],
+                                                                                          noDamageTo: [])))
+        
+    }
+    
+        
 }
 
 extension MockPokemonService : PokemonServiceProtocol {
@@ -115,5 +160,9 @@ extension MockPokemonService : PokemonServiceProtocol {
     
     func getEvolution(url: String) async throws -> Evolution {
         return evolution
+    }
+    
+    func getPokemonTypeStats(listOfTypes: [String]) async throws -> [PkType] {
+        return pkTypeStats  
     }
 }

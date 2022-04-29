@@ -22,7 +22,7 @@ struct PokemonDetailDataView: View {
             
             Spacer()
         }
-        .padding(8)
+        .padding(.vertical, 4)
     }
 }
 

@@ -14,7 +14,7 @@ struct PokemonAboutView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 8){
+            VStack{
                 Text(species?.flavorTextEntries.first?.flavorText.removeWhitespaceUnicode() ?? "")
                     .foregroundColor(Color(uiColor: .black).opacity(0.6))
                     .font(.subheadline)
@@ -37,7 +37,7 @@ struct PokemonAboutView: View {
                         .foregroundColor(Color(pokemon.types.first?.type.name ?? "Gray"))
                     Spacer()
                 }
-                .padding(8)
+                .padding()
                 
                 VStack {
                     PokemonDetailDataView(dataName: "Height", dataValue: "\(pokemon.height)", typeColor: typeColor)
@@ -46,9 +46,8 @@ struct PokemonAboutView: View {
                     PokemonDetailDataView(dataName: "Gender Rate", dataValue: "\(species?.genderRate ?? 0)", typeColor: typeColor)
                     PokemonDetailDataView(dataName: "Capture Rate", dataValue: "\(species?.captureRate ?? 0)", typeColor: typeColor)
                     PokemonDetailDataView(dataName: "Growth Rate", dataValue: "\(species?.growthRate.name ?? "")", typeColor: typeColor)
-
-
                 }
+                .padding(.horizontal)
                 
                 
                 

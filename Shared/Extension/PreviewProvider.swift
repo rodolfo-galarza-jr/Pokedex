@@ -55,4 +55,12 @@ class DeveloperPreview {
                                  PokemonType(id: 2, type: NamedAPIResource(name: "poison", url: "https://pokeapi.co/api/v2/type/4/"))])
     
     let species =  Species(id: 1, baseHappiness: 50, captureRate: 45, genderRate: 1, hatchCounter: 20, order: 1, eggGroups: [NamedAPIResource(name: "monster", url: "https://pokeapi.co/api/v2/egg-group/1/"), NamedAPIResource(name: "plant", url: "https://pokeapi.co/api/v2/egg-group/7/")], growthRate: NamedAPIResource(name: "medium-slow", url: "https://pokeapi.co/api/v2/growth-rate/4/"), habitat: NamedAPIResource(name: "grassland", url: "https://pokeapi.co/api/v2/pokemon-habitat/3/"), evolutionChain: APIResource(url: "https://pokeapi.co/api/v2/evolution-chain/1/"), flavorTextEntries: [flavorTextEntry(flavorText: "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokemon", language: NamedAPIResource(name: "en", url: ""), version: NamedAPIResource(name: "red", url: ""))], hasGenderDifferences: false, isBaby: false, isLegendary: false, isMythical: false)
+    
+    let typeStat = PkType(id: 4, name: "poison", damageRelations: damageRelations(doubleDamageFrom: [NamedAPIResource(name: "ground", url: ""), NamedAPIResource(name: "psychic", url: "")],
+                                                                                  doubleDamageTo: [],
+                                                                                  halfDamageFrom: [NamedAPIResource(name: "fighting", url: ""), NamedAPIResource(name: "poison", url: ""), NamedAPIResource(name: "bug", url: ""),
+                                                                                                  NamedAPIResource(name: "grass", url: ""), NamedAPIResource(name: "fairy", url: "")],
+                                                                                  halfDamageTo: [],
+                                                                                  noDamageFrom: [],
+                                                                                  noDamageTo: []))
 }
